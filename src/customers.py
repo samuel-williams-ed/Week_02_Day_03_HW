@@ -13,3 +13,8 @@ class Customers():
         #take drunkness int from drink class and add to drunkenenesss
         amount_of_alchol = drink_object #int
         self.drunkenness += amount_of_alchol #int
+    
+    def rejuvenate(self, food_object):
+        self.drunkenness -= food_object.rejuvenation_level
+        # print(f"Rejuvenating the customer {food_object.rejuvenation_level}")
+    
