@@ -15,6 +15,7 @@ class TestPub(unittest.TestCase):
         self.test_pub = Pub("Merrygold", 1000)
         self.stock_the_bar = self.test_pub.add_drinks_to_stock(self.test_drinks)
         self.test_customer = Customers("Jeremy", 27, 0, 25)
+        self.test_customer_underage = Customers("Lola", 7, 0, 50)
         self.test_food = Food("Pizza", 12, 30)
 
     def test_pubs_has_drinks(self):
@@ -25,7 +26,12 @@ class TestPub(unittest.TestCase):
         self.assertEqual(1002, self.test_pub.till)
         
     def test_pub_check_age(self):
-        self.assertEqual(True, self.test_pub.check_age(self.test_customer))
+        self.assertEqual(False, self.test_pub.check_if_underage(self.test_customer))
+
+##########
+    def test_pub_refuses_sale_to_underage(self):
+        self.test_pub.sell_drink(self.test_customer_underage, self.test_drinks)
+        self.assertEqual(0, self.test_customer_underage.drunkenness)
 
     def test_customer_gets_more_drunk(self):
         self.test_pub.sell_drink(self.test_customer, self.test_drinks)

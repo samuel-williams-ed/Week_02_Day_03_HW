@@ -28,26 +28,28 @@ class Pub():
             return True
         # print("He's nae drunk yet")
         return False
+    
+    def check_if_underage(self, customer):
+        if customer.age < 18:
+            return True
+        return False
 
     def refuse_service(self):
-        print("Yer steamin' pal")
+        print("No tonight pal.")
 
     def sell_drink(self, customer_object, drink_object):
+        #if customer underage or drunk refuse sale
+        if self.check_if_underage(customer_object) or self.check_steamin(customer_object):
+            self.refuse_service
+            return
         single_drink_dictionary_entry = drink_object[0]
         cost_of_drink = single_drink_dictionary_entry['price']
         strength_of_drink = single_drink_dictionary_entry["strength"]
-        if self.check_steamin(customer_object):
-            self.refuse_service()
-            return
         self.add_to_till(cost_of_drink)
         customer_object.reduce_wallet(cost_of_drink)
         customer_object.make_drunker(strength_of_drink)
         self.reduce_stock_level(single_drink_dictionary_entry)
-        
-    def check_age(self, customer):
-        if customer.age > 18:
-            return True
-        return False
+
 
     def sell_food(self, food_object, customer_object):
         customer_object.reduce_wallet(food_object.price)
