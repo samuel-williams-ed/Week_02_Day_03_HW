@@ -41,3 +41,12 @@ class TestPub(unittest.TestCase):
     def test_selling_food_rejuvenates_customer(self):
         self.test_pub.sell_food(self.test_food, self.test_customer)
         self.assertEqual(-30, self.test_customer.drunkenness)
+    
+    def test_rejuvenation_after_food_and_alcohol(self):
+        self.test_pub.sell_drink(self.test_customer, self.test_drinks)
+        self.test_pub.sell_drink(self.test_customer, self.test_drinks)
+        self.test_pub.sell_drink(self.test_customer, self.test_drinks)
+        self.test_pub.sell_food(self.test_food, self.test_customer)
+        self.assertEqual(0, self.test_customer.drunkenness)
+
+    
