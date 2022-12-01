@@ -19,7 +19,6 @@ class Pub():
     def reduce_stock_level(self, drink_object):
         drink_object["stock"] -= 1
 
-
     def add_drinks_to_stock(self, list_of_drinks_objects):
         for drink in list_of_drinks_objects:
             self.drinks.append(drink)
@@ -34,11 +33,9 @@ class Pub():
         print("Yer steamin' pal")
 
     def sell_drink(self, customer_object, drink_object):
-
         single_drink_dictionary_entry = drink_object[0]
         cost_of_drink = single_drink_dictionary_entry['price']
         strength_of_drink = single_drink_dictionary_entry["strength"]
-        
         if self.check_steamin(customer_object):
             self.refuse_service()
             return
@@ -52,4 +49,7 @@ class Pub():
             return True
         return False
 
-
+    def sell_food(self, food_object, customer_object):
+        customer_object.reduce_wallet(food_object.price)
+        customer_object.rejuvenate(food_object)
+    
