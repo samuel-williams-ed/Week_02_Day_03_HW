@@ -3,6 +3,7 @@ import unittest
 from src.pub import Pub
 from src.drinks import Drinks
 from src.customers import Customers
+from src.food import Food
 
 class TestPub(unittest.TestCase):
     def setUp(self):  
@@ -13,8 +14,8 @@ class TestPub(unittest.TestCase):
         ]
         self.test_pub = Pub("Merrygold", 1000)
         self.stock_the_bar = self.test_pub.add_drinks_to_stock(self.test_drinks)
-        #customer ( name, age, drnukness, cash)
         self.test_customer = Customers("Jeremy", 27, 0, 25)
+        self.test_food = Food("Pizza", 12, 30)
 
     def test_pubs_has_drinks(self):
         self.assertEqual(1, self.test_pub.get_drinks_list_length())
@@ -32,3 +33,11 @@ class TestPub(unittest.TestCase):
     
     def test_check_steamin(self):
         self.assertEqual(False, self.test_pub.check_steamin(self.test_customer))
+
+    def test_selling_food_costs_customer(self):
+        self.test_pub.sell_food(self.test_food, self.test_customer)
+        self.assertEqual(13, self.test_customer.wallet)
+    
+    def test_selling_food_rejuvenates_customer(self):
+        self.test_pub.sell_food(self.test_food, self.test_customer)
+        self.assertEqual(-30, self.test_customer.drunkenness)
